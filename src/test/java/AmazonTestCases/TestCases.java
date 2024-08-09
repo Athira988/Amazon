@@ -109,17 +109,15 @@ public class TestCases extends BaseClass {
 			//action.dragAndDrop(source, destination);		
 			//action.contextClick();//right click 		
 			driver.navigate().back();
+		    Thread.sleep(2000);			
+		 //  action.doubleClick(driver.findElement(By.id("search_button")));		 
+		 //  action.moveToElement(driver.findElement(By.xpath("//span[text()='Train Tickets']")));
+			
+		   driver.findElement(By.id("src")).sendKeys("Kochi");		 
 		    Thread.sleep(2000);
-			
-		  action.doubleClick(driver.findElement(By.id("search_button")));
-		 
-		  action.moveToElement(driver.findElement(By.xpath("//span[text()='Train Tickets']")));
-			
-		//	driver.findElement(By.xpath("//input[@id='src']")).sendKeys("Kochi");
-			//Thread.sleep(2000);
-		//	action.sendKeys(Keys.ARROW_DOWN);
-			//action.sendKeys(Keys.ENTER);
-		  action.build().perform();
+		    action.sendKeys(Keys.ARROW_DOWN);
+			action.sendKeys(Keys.ENTER);
+		     action.build().perform();
 				
 		}
 	
