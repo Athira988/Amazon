@@ -3,6 +3,7 @@ package AmazonTestCases;
 import org.testng.annotations.Test;
 
 import java.util.List;
+import java.util.Set;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
@@ -14,6 +15,7 @@ import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
 import AutomationCore.BaseClass;
+import io.opentelemetry.exporter.logging.SystemOutLogRecordExporter;
 
 public class TestCases extends BaseClass {
 
@@ -117,10 +119,73 @@ public class TestCases extends BaseClass {
 		    Thread.sleep(2000);
 		    action.sendKeys(Keys.ARROW_DOWN);
 			action.sendKeys(Keys.ENTER);
-		     action.build().perform();
-				
+		     action.build().perform();				
 		}
 	
-		
+	@Test
 	
+	public void TC04()
+	{
+		driver.findElement(By.name("field-keywords")).sendKeys("Laptop");
+		driver.findElement(By.id("nav-search-submit-button")).click();
+		driver.findElement(By.xpath("(//input[@type='checkbox']//following-sibling::i)[1]")).click();
+		driver.findElement(By.xpath("(//input[@type='checkbox']//following-sibling::i)[7]")).click();
+		driver.navigate().to("https://form.immigration.ca/skilled-worker/");
+		driver.findElement(By.xpath("(//label[@class='custom-control-label'])[1]")).click();
+	}
+	
+	@Test
+	public void TC05() throws Exception
+	{
+		
+		
+		boolean searchboxstatus=driver.findElement(By.id("twotabsearchtextbox")).isDisplayed();
+		System.out.println(searchboxstatus);
+		boolean locationstatus=driver.findElement(By.id("nav-search-submit-button")).isEnabled();
+		System.out.println(locationstatus);
+		driver.findElement(By.name("field-keywords")).sendKeys("iPhone");
+		driver.findElement(By.id("nav-search-submit-button")).click();
+		driver.findElement(By.xpath("(//span[@class='a-size-medium a-color-base a-text-normal'])[4]")).click();
+		
+		String parentwindow =driver.getWindowHandle();
+		Set<String> childwindows=driver.getWindowHandles();
+		for(String actual:childwindows)
+		{
+			if(!actual.equalsIgnoreCase(parentwindow))
+			{
+			driver.switchTo().window(actual);
+		    System.out.println(driver.getTitle());
+		    Thread.sleep(20000);
+			driver.findElement(By.xpath("(//input[@name='submit.add-to-cart'])[2]")).click();
+			}
+		}
+				
+		driver.switchTo().window(parentwindow);
+		driver.navigate().refresh();
+				
+	}
+	
+	@Test
+	public void TC06() throws InterruptedException
+	{
+		driver.get("https://www.immigration.ca/");        
+
+        driver.findElement(By.xpath("(//span[@class='elementor-button-text'])[1]")).click();
+        Thread.sleep(20000);
+     String parentwindow= driver.getWindowHandle();
+        Set<String> childwindows=driver.getWindowHandles();
+         for(String actual:childwindows)
+        {
+               if (!actual.equalsIgnoreCase(parentwindow))
+               {
+                     driver.switchTo().window(actual);
+                     System.out.println(driver.getTitle());
+		             Thread.sleep(20000);
+                     driver.findElement(By.id("name")).sendKeys("Athira");
+                     }
+               
+               }
+      //  driver.switchTo().window(parentwindow);
+      //  driver.navigate().refresh(); 
+	} 
 }
